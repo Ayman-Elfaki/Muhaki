@@ -1,5 +1,5 @@
-﻿using Muhaki.Extensibility.Core;
-using Muhaki.Extensibility.Contracts;
+﻿using Muhaki.Extensibility.Contracts;
+using Muhaki.Extensibility.Models;
 
 namespace Muhaki.MOS6502.Registers;
 

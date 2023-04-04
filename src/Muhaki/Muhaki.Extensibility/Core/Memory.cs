@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Muhaki.Extensibility.Core;
 
-namespace Muhaki.Extensibility.Core;
-public abstract class Memory
+public sealed class Memory : Dictionary<long, long>
 {
-    
-}
+    public Memory() : base() { }
 
+    public Memory(int capacity) : base(capacity) { }
+
+    public void Initialize()
+    {
+        foreach (var item in this)
+        {
+            this[item.Key] = 0L;
+        }
+    }
+
+}

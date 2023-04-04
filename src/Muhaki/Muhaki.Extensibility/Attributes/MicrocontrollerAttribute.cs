@@ -10,7 +10,7 @@ public class MicrocontrollerAttribute : ExportAttribute
     public string Name { get; }
 
     public MicrocontrollerAttribute(string name)
-        : base(typeof(IMicrocontrollerSource))
+        : base(typeof(IMicrocontrollerSourceProvider))
     {
         Name = name;
     }

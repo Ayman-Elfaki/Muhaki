@@ -5,10 +5,10 @@ namespace Muhaki.Extensibility.Attributes;
 
 [MetadataAttribute]
 [AttributeUsage(AttributeTargets.Class,AllowMultiple = true)]
-public class InstructionsAttribute<T> : Attribute where T : IInstructionsSource
+public class ExportInstructionsAttribute<T> : Attribute where T : IInstructionsSource
 {
     public Type Instructions { get; }
-    public InstructionsAttribute()
+    public ExportInstructionsAttribute()
     {
         Instructions = typeof(T);
     }

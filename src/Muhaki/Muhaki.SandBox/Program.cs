@@ -1,7 +1,10 @@
-﻿using Muhaki.Extensibility.Contracts;
-using Muhaki.Extensibility.Core;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+
+using Muhaki.Extensibility.Contracts;
+using Muhaki.Extensibility.Core;
+using Muhaki.Extensibility.Models;
+using Muhaki.Extensibility.Utilities;
 
 var extensionsPath = @"D:\GitHub\Muhaki\src\Muhaki\Muhaki.MOS6502\bin\Debug\net7.0";
 var catalogs = new AggregateCatalog();
@@ -33,22 +36,30 @@ foreach (var instructions in microcontroller!.Instructions)
 [Export]
 public class Microcontroller
 {
-    private Lazy<IMicrocontrollerSource, IMicrocontrollerMetadata> _msp;
     public string Name { get; }
     public IReadOnlyList<Register> Registers { get; }
     public IReadOnlyList<Instruction> Instructions { get; }
 
+    private readonly MicrocontrollerSource _microcontroller;
 
     [ImportingConstructor]
     public Microcontroller(
-        [Import] Lazy<IMicrocontrollerSource, IMicrocontrollerMetadata> msp)
+        [Import] Lazy<IMicrocontrollerSourceProvider, IMicrocontrollerMetadata> msp)
     {
-        _msp = msp;
+        var registers = msp.Metadata.Registers.SelectMany(a => CreateInstance<IRegistersSource>(a).GetRegisters()).ToList();
+        var instructions = msp.Metadata.Instructions.SelectMany(a => CreateInstance<IInstructionsSource>(a).GetInstructions()).ToList();
 
-        Name = _msp.Metadata.Name;
-        Registers = _msp.Metadata.Registers.SelectMany(a => CreateInstance<IRegistersSource>(a).GetRegisters()).ToList();
-        Instructions = _msp.Metadata.Instructions.SelectMany(a => CreateInstance<IInstructionsSource>(a).GetInstructions()).ToList();
+        Name = msp.Metadata.Name;
+        Registers = registers;
+        Instructions = instructions;
 
+        _microcontroller = msp.Value.TryCreateMicrocontroller(registers.ToRegisters(), new Memory());
+
+    }
+
+    public void Rest()
+    {
+        _microcontroller.Rest();
     }
 
 

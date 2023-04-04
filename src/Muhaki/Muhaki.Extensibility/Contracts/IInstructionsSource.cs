@@ -1,4 +1,4 @@
-﻿using Muhaki.Extensibility.Core;
+﻿using Muhaki.Extensibility.Models;
 
 namespace Muhaki.Extensibility.Contracts;
 

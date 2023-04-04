@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Muhaki.Extensibility.Core;
-public class Processor 
+public abstract class MicrocontrollerSource
 {
-
-
+    public abstract void Rest();
 }

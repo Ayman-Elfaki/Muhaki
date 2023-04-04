@@ -5,10 +5,10 @@ namespace Muhaki.Extensibility.Attributes;
 
 [MetadataAttribute]
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-public class RegistersAttribute<T> : Attribute where T : IRegistersSource
+public class ExportRegistersAttribute<T> : Attribute where T : IRegistersSource
 {
     public Type Registers { get; }
-    public RegistersAttribute()
+    public ExportRegistersAttribute()
     {
         Registers = typeof(T);
     }

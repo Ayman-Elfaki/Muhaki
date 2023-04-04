@@ -1,4 +1,4 @@
-using Muhaki.Extensibility.Core;
+using Muhaki.Extensibility.Models;
 using System.Runtime.InteropServices;
 
 namespace Muhaki.Extensibility.Contracts;
